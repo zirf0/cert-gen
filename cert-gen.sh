@@ -13,7 +13,6 @@ TMPL=$DDIR'req.tmpl'
 RSTMPL=$DDIR'10-graylog.tmpl'
 #Color_Off='\033[0m'
 #Red='\033[0;31m'
-PREFIX=$1
 
 #echo $'\033[0;31m'
 # if certtool installed
@@ -47,22 +46,25 @@ then
     
 fi
 #if command line empty
-if ! [ -z "$PREFIX" ];
+if  [ "$1" = "" ];
 then
-	    echo  $'\033[0;31m'"  run $0 prefix"
-	    echo " uniq for filenames"
+	    echo  $'\033[0;31m'"Run: $0 prefix"
+	    echo " prefix unique for filenames"
 	    echo $'\033[0m'
             exit 4
     
 fi
 
-#echo $'\033[0m'
-#Delete it
-echo $1
-exit
-$CT --generate-privkey --outfile $1-key.pem --bits 2048
-$CT --generate-request --load-privkey $1-key.pem --outfile request.pem --template  $TMPL
-$CT --generate-certificate --load-request request.pem --outfile $1-cert.pem --load-ca-certificate $CA --load-ca-privkey $CAKEY \
+# generate cert and key files
+
+$CT --generate-privkey --outfile $ODIR$1-key.pem --bits 2048
+$CT --generate-request --load-privkey $ODIR$1-key.pem --outfile request.pem --template  $TMPL
+$CT --generate-certificate --load-request request.pem --outfile $ODIR$1-cert.pem --load-ca-certificate $CA --load-ca-privkey $CAKEY \
 	--template $TMPL
 rm -f request.pem
-chmod 644 $1-*
+chmod 644 $ODIR$1-*
+
+
+# generate rsyslog config
+
+sed s/machine/$1/g $RSTMPL > $ODIR$1-graylog.conf

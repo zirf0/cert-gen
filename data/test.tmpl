@@ -1,0 +1,14 @@
+#certificates
+global(
+DefaultNetstreamDriverCAFile="/etc/rsyslog.d/ca.pem"
+DefaultNetstreamDriverCertFile="/etc/rsyslog.d/machine-cert.pem"
+DefaultNetstreamDriverKeyFile="/etc/rsyslog.d/machine-key.pem"
+)
+
+# make gtls driver the default
+$DefaultNetStreamDriver gtls
+$ActionSendStreamDriverMode 1	# run driver in TLS-only mode
+$ActionSendStreamDriverAuthMode anon
+
+#replace node with actual central log server
+local7.* @@node2:10514;RSYSLOG_SyslogProtocol23Format
