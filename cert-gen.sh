@@ -5,7 +5,8 @@
 #
 DDIR='data/'
 ODIR='output/'
-GLSRV='****' # Edit this line, subtitute real graylog server hostname or IP
+#GLSRV='****' # Edit this line, subtitute real graylog server hostname or IP
+GLSRV='node2'
 CT='/usr/bin/certtool'
 CA=$ODIR'ca.pem'
 CAKEY=$ODIR'ca-key.pem'
@@ -14,22 +15,27 @@ RSTMPL=$DDIR'10-graylog.tmpl'
 #Color_Off='\033[0m'
 #Red='\033[0;31m'
 
-#echo $'\033[0;31m'
-# if certtool installed
+# is GLSRV correct
+if [ "$GLSRV" = '****' ];
+then
+	echo $'\033[0;31m'"$GLSRV is not valid value. Edit $0 set  GLSRV variable as servername or IP of graylog server.Exit"$'\033[0m'
+	exit 127
+fi
+# is certtool installed
 if ! [ -f $CT ];
 then
 	    echo $'\033[0;31m'"Sorry $CT not found, please install in first. Exit"
 	    echo $'\033[0m'
 	    exit 1
 fi
-# if ca.pem and ca-key.pem present
+# is ca.pem and ca-key.pem present
 if ! [  -f $CA -a  -f $CAKEY ];
 then
 	    echo  $'\033[0;31m'"Sorry, $CA or $CAKEY not found. Run gen-ca.sh first. Exit"
 	    echo $'\033[0m'
 	    exit 2 
 fi
-# if req.tmpl esists? 
+# is req.tmpl esists? 
 if ! [ -f $TMPL ];
 then
 	    echo  $'\033[0;31m'"  $TMPL doesn't exist. Exit"
@@ -45,11 +51,11 @@ then
             exit 3
     
 fi
-#if command line empty
+#is command line empty
 if  [ "$1" = "" ];
 then
 	    echo  $'\033[0;31m'"Run: $0 prefix"
-	    echo " prefix unique for filenames"
+	    echo " prefix should be unique for filenames"
 	    echo $'\033[0m'
             exit 4
     
@@ -67,4 +73,6 @@ chmod 644 $ODIR$1-*
 
 # generate rsyslog config
 
-sed s/machine/$1/g $RSTMPL > $ODIR$1-graylog.conf
+sed s/machine/$1/g $RSTMPL > tmp
+sed s/glsrv/$GLSRV/g tmp > $ODIR$1-graylog.conf
+rm tmp
