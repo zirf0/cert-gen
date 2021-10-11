@@ -4,7 +4,7 @@
 # Semi autugeneration of certificates for GL + rsyslog TLS
 #
 DDIR='data/'
-ODIR='out/'
+ODIR=''
 #GLSRV='****' # Edit this line, subtitute real graylog server hostname or IP
 GLSRV='node2'
 CT='/usr/bin/certtool'
