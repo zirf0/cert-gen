@@ -14,7 +14,7 @@ TMPL=$DDIR'req.tmpl'
 RSTMPL=$DDIR'10-graylog.tmpl'
 #Color_Off='\033[0m'
 #Red='\033[0;31m'
-
+echo
 # is GLSRV correct
 if [ "$GLSRV" = '****' ];
 then
