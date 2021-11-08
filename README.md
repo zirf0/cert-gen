@@ -1,3 +1,4 @@
+Configure rsyslog TLS, central Graylog and Nginx to send logs to Graylog
 
 Generate CA and machine certificates
 
