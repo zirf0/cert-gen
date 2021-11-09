@@ -4,7 +4,7 @@
 # Semi autugeneration of certificates for GL + rsyslog TLS
 #
 DDIR='data/'
-ODIR=''
+ODIR='ca/'
 CT='/usr/bin/certtool'
 CA=$ODIR'ca.pem'
 CAKEY=$ODIR'ca-key.pem'
@@ -39,5 +39,6 @@ fi
 
 $CT -p  --outfile $CAKEY
 chmod 400 $CAKEY
+chmod 400 $CA
 $CT -s --load-privkey $CAKEY --outfile $CA --template $CATMPL
 

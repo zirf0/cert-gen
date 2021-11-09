@@ -11,7 +11,7 @@ Edit cert-gen.sh, variable GLSRV must point to real graylog server instead of �
 2. $ ./gen-ca.sh
 It generates ca/ca.pem and ca/ca-key.pem. Do it once, you will use these files in future (the
 script has foolproof, it can’t overwrite files if they already exist).
-3. Now you can generate sets for webservers and graylog server. Syntax for cert-gen.sh:
+3. Now you can generate sets for webservers and gl server. Syntax for cert-gen.sh:
 ./cent-gen host
 where “host” is prefix for files you needed. Live example:
 $ cent-gen ngx1
@@ -30,7 +30,7 @@ $ scp out/ngx1* out/ca.pem user@ngx1:
 
 to copy file fo homedir of the ‘user’.
 
-For graylog server you don’t need to copy ngx1-graylog.conf, so
+For gl server you don’t need to copy ngx1-graylog.conf, so
 $ scp out/ca.pem out/ngx1-cert.pem out/ngx1-key.pem user@ngx1:
 Do step 3 for all servers. Note, ca.pem is general for all servers, whereas other files are different. I
 suppose your rsyslog configuration is default, without any forwarding.
@@ -42,7 +42,7 @@ Loging as ‘user’
 $ sudo apt install -y rsyslog-gnutls
 2. copy all received from CA files to /etc/rsyslog.d/
 $ sudo ngx1* /etc/rsyslog.d/
-3. for graylog server 
+3. for gl server 
 enable port 10514/tcp in firewall/security groups.
 open WebUI, System/Inputs Syslog TCP
 Important things:
@@ -57,6 +57,6 @@ Configure nginx sites. In configuration files of nginx in server or vhost sectio
 error_log syslog:server=unix:/dev/log,facility=local7,tag=vhost1_err,severity=error;
 access_log syslog:server=unix:/dev/log,facility=local7,tag=vhost1,nohostname,severity=info combined;
 Pay attention to ‘tag’, it will be seen as ‘application name’ instead of ‘nginx’. So you will can sort it 
-out on graylog server. ‘severity’ is up to you.
+out on gl server. ‘severity’ is up to you.
 $ sudo systemctl restart rsyslog
 $ sudo systemctl reload nginx

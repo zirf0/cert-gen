@@ -4,7 +4,8 @@
 # Semi autugeneration of certificates for GL + rsyslog TLS
 #
 DDIR='data/'
-ODIR=''
+ODIR='ca/'
+ODIR1='out/'
 #GLSRV='****' # Edit this line, subtitute real graylog server hostname or IP
 GLSRV='node2'
 CT='/usr/bin/certtool'
@@ -63,16 +64,16 @@ fi
 
 # generate cert and key files
 
-$CT --generate-privkey --outfile $ODIR$1-key.pem --bits 2048
-$CT --generate-request --load-privkey $ODIR$1-key.pem --outfile request.pem --template  $TMPL
-$CT --generate-certificate --load-request request.pem --outfile $ODIR$1-cert.pem --load-ca-certificate $CA --load-ca-privkey $CAKEY \
+$CT --generate-privkey --outfile $ODIR1$1-key.pem --bits 2048
+$CT --generate-request --load-privkey $ODIR1$1-key.pem --outfile request.pem --template  $TMPL
+$CT --generate-certificate --load-request request.pem --outfile $ODIR1$1-cert.pem --load-ca-certificate $CA --load-ca-privkey $CAKEY \
 	--template $TMPL
 rm -f request.pem
-chmod 644 $ODIR$1-*
+chmod 644 $ODIR1$1-*
 
 
 # generate rsyslog config
 
 sed s/machine/$1/g $RSTMPL > tmp
-sed s/glsrv/$GLSRV/g tmp > $ODIR$1-graylog.conf
+sed s/glsrv/$GLSRV/g tmp > $ODIR1$1-graylog.conf
 rm tmp
