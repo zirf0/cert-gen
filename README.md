@@ -12,12 +12,11 @@ Edit cert-gen.sh, variable GLSRV must point to real graylog server instead of �
 It generates ca/ca.pem and ca/ca-key.pem. Do it once, you will use these files in future (the
 script has foolproof, it can’t overwrite files if they already exist).
 3. Now you can generate sets for webservers and graylog server. Syntax for cert-gen.sh:
-./cent-gen host
-where “host” is prefix for files you needed. Live example:
-$ cent-gen ngx1
+./cent-gen hostname
+where “hostname” is prefix for files you needed. Live example:
+$ ./cent-gen ngx1
 $ ls -l out/
-ca-key.pem
-ca.pem
+
 ngx1-cert.pem
 ngx1-graylog.conf
 ngx1-key.pem
