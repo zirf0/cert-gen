@@ -79,6 +79,7 @@ access_log syslog:server=unix:/dev/log,facility=local7,tag=vhost1,nohostname,sev
 на сервере graylog. От вас зависит строгость(severity).
 
 $ sudo systemctl restart rsyslog
+
 $ sudo systemctl reload nginx
 
 
