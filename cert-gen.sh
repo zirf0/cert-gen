@@ -6,8 +6,8 @@
 DDIR='data/'
 ODIR='ca/'
 ODIR1='out/'
-#GLSRV='****' # Edit this line, subtitute real graylog server hostname or IP
-GLSRV='node2'
+GLSRV='****' # Edit this line, subtitute real graylog server hostname or IP
+#GLSRV='node2'
 CT='/usr/bin/certtool'
 CA=$ODIR'ca.pem'
 CAKEY=$ODIR'ca-key.pem'
