@@ -1,26 +1,26 @@
-**Part I. Graylog server installation (docker image) Ubuntu 18.04
+**Part I. Graylog server installation (docker image) Ubuntu 18.04**
 
 0. Configure firewall (include AWS SG or Azure NGS to allow 9000/tcp(WebUI*) and 5140/tcp(SyslogTCP input of GrayLog)
 1. Install docker, pwgen via apt.
 2. Install docker-compose from GitHub
 
-*$ wget https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-linux-x86_64
-*$ chmod +x docker-compose-linux-x86_64
-*$ sudo cp docker-compose-linux-x86_64 /usr/local/bin
-*$ sudo ln -s /usr/local/bin/docker-compose-linux-x86_64 /usr/bin/docker-compose
+*$ wget https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-linux-x86_64*
+*$ chmod +x docker-compose-linux-x86_64*
+*$ sudo cp docker-compose-linux-x86_64 /usr/local/bin*
+*$ sudo ln -s /usr/local/bin/docker-compose-linux-x86_64 /usr/bin/docker-compose*
 
 3. Download docker-compose.yml
 
-* $git clone https://github.com/Graylog2/docker-compose 
+* $git clone https://github.com/Graylog2/docker-compose* 
 
 you will need ~/docker-compose/open-core. There
 
-*$cp .env.example .env
-*$nano .env
+*$cp .env.example .env*
+*$nano .env*
 
 Follow the instructions inside file. Please note command
 
-*$ echo youpass | shasum -a 256
+*$ echo youpass | shasum -a 256*
 will output
 f99e38e7d33e39d9150f92232bebdca0b83fa5192b61100d9c5e963c411f5f7f  -
 You need only
@@ -45,10 +45,10 @@ ports:
 
 5. Now you can run docker-compose
 
-*$sudo docker-compose up -d
+*$sudo docker-compose up -d*
 (Note: you can avoid persistent usiage of "sudo" with docker, just add current user to sudo group "docker".
 
-*$ sudo usermod -aG docker remon)
+*$ sudo usermod -aG docker userame*
 
 6. wait for full start. Check your server http://url-of-server:9000
 login admin
@@ -58,22 +58,22 @@ password yourpass from step 3
 
 Install certtools
 
-*$ sudo apt install -y gnutls-bin
+*$ sudo apt install -y gnutls-bin*
 
 
-*$cd  cert-gen
-*$ ./gen-ca.sh
+*$cd  cert-gen*
+*$ ./gen-ca.sh*
 
 It generates ca.pem (root CA) and ca-key.pem in ca/ folder. Keep these files! All over certificates will be based on them.
 
 Generate certificates and configuration file for rsyslog
 (edit  cert-gen.sh set up $GLSRV variable to actual graylog server name or IP, instead of "****")
 
-* $./cert-gen.sh gl
+* $./cert-gen.sh gl*
 
 It generates 3 files in out/ folder: gl-cert.pem  gl-graylog.conf  gl-key.pem. You do not need gl-graylog.conf. The file is for rsyslog, graylog ignores it. So
 
-*$ rm out/ gl-graylog.conf
+*$ rm out/ gl-graylog.conf*
 *$ sudo cp ca/ca.pem out/gl* /var/lib/docker/volumes/graylog-docker_graylog_data/_data
 This step copies data to named volume of container (note this is for Ubuntu 18, Debian 11 use over folder name).
 
@@ -85,21 +85,21 @@ In container path to the data /usr/share/graylog/data/data. Run input.
 
 
 
-Part II. Setup test client (any minimal VM instance).
+**Part II. Setup test client (any minimal VM instance).**
 
 1.  Install rsyslog TLS drivers. For Debian/Ubuntu
 
-*$ sudo apt install -y rsyslog-gnutls
+*$ sudo apt install -y rsyslog-gnutls*
  
 2. Use script in cert-gen, for example
 
-* $./cert-gen  dev01
+* $./cert-gen  dev01*
 
 will generate in out/ dev01-cert.pem  dev01-graylog.conf  dev01-key.pem, you should copy these files and ca/ca.pem to /etc/rsyslog.d on target device. Then (on target)
 
-*$ sudo systemctl restart rsyslog
+*$ sudo systemctl restart rsyslog*
 check result
-*$ sudo tail -n 20 -f /var/log/syslog
+*$ sudo tail -n 20 -f /var/log/syslog*
 
 If OK
 Dec  9 04:54:48 node3 systemd[1]: Stopping System Logging Service...
