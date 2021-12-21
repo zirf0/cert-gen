@@ -84,7 +84,7 @@ It generates ca.pem (root CA) and ca-key.pem in ca/ folder. Keep these files! Al
 Generate certificates and configuration file for rsyslog
 (edit  cert-gen.sh set up $GLSRV variable to actual graylog server name or IP, instead of "****")
 
-* $./cert-gen.sh gl*
+*$./cert-gen.sh gl*
 
 It generates 3 files in out/ folder: gl-cert.pem  gl-graylog.conf  gl-key.pem. You do not need gl-graylog.conf. The file is for rsyslog, graylog ignores it. So
 
