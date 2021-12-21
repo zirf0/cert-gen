@@ -33,6 +33,7 @@ f99e38e7d33e39d9150f92232bebdca0b83fa5192b61100d9c5e963c411f5f7f
 4.  Edit docker-compose.yml. Comment out unused ports:
 
 ports:
+
     #- "5044:5044/tcp"   # Beats
 
     #- "5140:5140/udp"   # Syslog
