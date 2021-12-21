@@ -34,16 +34,27 @@ f99e38e7d33e39d9150f92232bebdca0b83fa5192b61100d9c5e963c411f5f7f
 
 ports:
     #- "5044:5044/tcp"   # Beats
+
     #- "5140:5140/udp"   # Syslog
+
     - "5140:5140/tcp"   # Syslog
+
     #- "5555:5555/tcp"   # RAW TCP
+
     #- "5555:5555/udp"   # RAW TCP
+
     - "9000:9000/tcp"   # Server API
+
     #- "12201:12201/tcp" # GELF TCP
+
     #- "12201:12201/udp" # GELF UDP
+
     #- "10000:10000/tcp" # Custom TCP port
+
     #- "10000:10000/udp" # Custom UDP port
+
     #- "13301:13301/tcp" # Forwarder data
+
     #- "13302:13302/tcp" # Forwarder config
 
 5. Now you can run docker-compose
