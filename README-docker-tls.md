@@ -5,13 +5,16 @@
 2. Install docker-compose from GitHub
 
 *$ wget https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-linux-x86_64*
+
 *$ chmod +x docker-compose-linux-x86_64*
+
 *$ sudo cp docker-compose-linux-x86_64 /usr/local/bin*
+
 *$ sudo ln -s /usr/local/bin/docker-compose-linux-x86_64 /usr/bin/docker-compose*
 
 3. Download docker-compose.yml
 
-* $git clone https://github.com/Graylog2/docker-compose* 
+*$git clone https://github.com/Graylog2/docker-compose* 
 
 you will need ~/docker-compose/open-core. There
 
