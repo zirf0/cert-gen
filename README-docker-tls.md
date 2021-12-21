@@ -93,7 +93,7 @@ In container path to the data /usr/share/graylog/data/data. Run input.
  
 2. Use script in cert-gen, for example
 
-* $./cert-gen  dev01*
+*$./cert-gen  dev01*
 
 will generate in out/ dev01-cert.pem  dev01-graylog.conf  dev01-key.pem, you should copy these files and ca/ca.pem to /etc/rsyslog.d on target device. Then (on target)
 
